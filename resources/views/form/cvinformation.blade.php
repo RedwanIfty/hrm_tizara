@@ -107,6 +107,49 @@
                             </ul>
                         </li>
                     </ul>
+                    <hr>
+                    <h4 class="card-title">8. Interests in Learning/Training/Courses</h4>
+                    <ul class="mt-3">
+                        <li><strong>Interest in Learning:</strong></li>
+                        <ul>
+                            @foreach($learningInterests as $key=>$learningInterest)
+                                <li>{{$learningInterest->interest}}</li>
+                            @endforeach
+                        </ul>
+                        <li><strong>Completed Courses:</strong></li>
+                        <ul>
+                            @foreach($learningInterests as $key=>$learningInterest)
+                                <li>{{$learningInterest->completed_course}}</li>
+                            @endforeach
+                        </ul>
+                    </ul>
+                    <hr>
+                    <h4 class="card-title">9.Additional Information</h4>
+                    <ul class="mt-3">
+                        <li><strong>Languages Known:</strong></li>
+                        <ul>
+                            @foreach($additionalInformations as $key=>$additionalInformation)
+                                <li>{{$additionalInformation->languages_known}}</li>
+                            @endforeach
+                        </ul>
+                    </ul>
+                    <ul class="mt-3">
+                        <li><strong>Hobbies:</strong></li>
+                        <ul>
+                            @foreach($additionalInformations as $key=>$additionalInformation)
+                                <li>{{$additionalInformation->hobbies}}</li>
+                            @endforeach
+                        </ul>
+                    </ul>
+                    <ul class="mt-3">
+                        <li><strong>Volunteer Work:</strong></li>
+                        <ul>
+                            @foreach($additionalInformations as $key=>$additionalInformation)
+                                <li>{{$additionalInformation->volunteer_work}}</li>
+                            @endforeach
+                        </ul>
+                    </ul>
+                    
                 </div>
             </div>
         </div>

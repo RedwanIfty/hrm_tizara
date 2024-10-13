@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdditionalInformation;
 use Illuminate\Http\Request;
 use DB;
 use Brian2694\Toastr\Facades\Toastr;
@@ -10,6 +11,7 @@ use App\Models\department;
 use App\Models\EducationBackground;
 use App\Models\InterpersonalSkill;
 use App\Models\JobExperience;
+use App\Models\LearningInterest;
 use App\Models\User;
 use App\Models\module_permission;
 use App\Models\NotableProject;
@@ -503,6 +505,8 @@ class EmployeeController extends Controller
         $professionalSkills=ProfessionalSkill::where('user_id',$id)->where('is_delete',0)->get();
         $interpersonalSkills=InterpersonalSkill::where('user_id',$id)->where('is_delete',0)->get();
         $notableProjects=NotableProject::where('user_id',$id)->where('is_delete',0)->get(); 
+        $learningInterests=LearningInterest::where('user_id',$id)->where('is_delete',0)->get();
+        $additionalInformations=AdditionalInformation::where('user_id',$id)->where('is_delete',0)->get();
         // Return the view with compacted variables
         return view('form.cvinformation', compact(
             'employeeInformation',
@@ -512,7 +516,9 @@ class EmployeeController extends Controller
             'jobExperiences',
             'professionalSkills',
             'interpersonalSkills',
-            'notableProjects'
+            'notableProjects',
+            'learningInterests',
+            'additionalInformations'
         ));
     }
 
