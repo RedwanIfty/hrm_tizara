@@ -471,7 +471,7 @@ class EmployeeController extends Controller
             ->where('employee_information.user_id',$id)->first();
 //        return $employeeInformation;
         $employeeInformation->date_of_birth = Carbon::parse($employeeInformation->date_of_birth)->format('jS F Y');
-
+        // 
         return view('form.cvinformation',compact('employeeInformation'));
     }
 
