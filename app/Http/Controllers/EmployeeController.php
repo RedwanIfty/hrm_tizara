@@ -7,8 +7,15 @@ use DB;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Employee;
 use App\Models\department;
+use App\Models\EducationBackground;
+use App\Models\InterpersonalSkill;
+use App\Models\JobExperience;
 use App\Models\User;
 use App\Models\module_permission;
+use App\Models\NotableProject;
+use App\Models\OtherQualification;
+use App\Models\ProfessionalSkill;
+use App\Models\WorkResponsibility;
 use Illuminate\Support\Carbon;
 
 class EmployeeController extends Controller
@@ -465,14 +472,49 @@ class EmployeeController extends Controller
     {
         return view('form.overtime');
     }
-    public function cvInformationIndex($id){
+    public function cvInformationIndex($id)
+    {
+        // Eager load related data
         $employeeInformation = DB::table('users')
-            ->leftJoin('employee_information','employee_information.user_id','users.id')
-            ->where('employee_information.user_id',$id)->first();
-//        return $employeeInformation;
-        $employeeInformation->date_of_birth = Carbon::parse($employeeInformation->date_of_birth)->format('jS F Y');
-        // 
-        return view('form.cvinformation',compact('employeeInformation'));
+            ->leftJoin('employee_information', 'employee_information.user_id', '=', 'users.id')
+            ->where('employee_information.user_id', $id)
+            ->where('employee_information.is_delete', 0)
+            ->select('users.*', 'employee_information.*')
+            ->first();
+
+        // Format date only if date_of_birth is not null
+        if (!empty($employeeInformation->date_of_birth)) {
+            $employeeInformation->date_of_birth = Carbon::parse($employeeInformation->date_of_birth)->format('jS F Y');
+        }
+
+        // Eager load educational background and format graduation year
+        $educationalBackground = EducationBackground::where('user_id', $id)->where('is_delete',0)->first();
+        if ($educationalBackground && !empty($educationalBackground->graduation_year)) {
+            $educationalBackground->graduation_year = Carbon::parse($educationalBackground->graduation_year)->format('jS F Y');
+        }
+
+        // Fetch other related data in a single query
+        $otherQualifications = OtherQualification::where('user_id', $id)->where('is_delete',0)->get();
+        $workResposibility = WorkResponsibility::where('user_id', $id)->where('is_delete',0)->first();
+        $jobExperiences = JobExperience::where('user_id', $id)->where('is_delete',0)->get();
+        foreach($jobExperiences as $jobExperience){
+            $jobExperience->date = Carbon::parse($jobExperience->date)->format('jS F Y');
+        }
+        $professionalSkills=ProfessionalSkill::where('user_id',$id)->where('is_delete',0)->get();
+        $interpersonalSkills=InterpersonalSkill::where('user_id',$id)->where('is_delete',0)->get();
+        $notableProjects=NotableProject::where('user_id',$id)->where('is_delete',0)->get(); 
+        // Return the view with compacted variables
+        return view('form.cvinformation', compact(
+            'employeeInformation',
+            'educationalBackground',
+            'otherQualifications',
+            'workResposibility',
+            'jobExperiences',
+            'professionalSkills',
+            'interpersonalSkills',
+            'notableProjects'
+        ));
     }
+
 
 }
