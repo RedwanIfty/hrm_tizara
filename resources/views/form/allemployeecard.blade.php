@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 @section('content')
-   
+
     <!-- Page Wrapper -->
     <div class="page-wrapper">
         <!-- Page Content -->
@@ -31,26 +31,26 @@
             <form action="{{ route('all/employee/search') }}" method="POST">
                 @csrf
                 <div class="row filter-row">
-                    <div class="col-sm-6 col-md-3">  
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" name="employee_id">
                             <label class="focus-label">Employee ID</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3">  
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" name="name">
                             <label class="focus-label">Employee Name</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3"> 
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" name="position">
                             <label class="focus-label">Position</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3">  
-                        <button type="sumit" class="btn btn-success btn-block"> Search </button>  
+                    <div class="col-sm-6 col-md-3">
+                        <button type="sumit" class="btn btn-success btn-block"> Search </button>
                     </div>
                 </div>
             </form>
@@ -69,6 +69,10 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ url('all/employee/view/edit/'.$lists->user_id) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                 <a class="dropdown-item" href="{{url('all/employee/delete/'.$lists->user_id)}}"onclick="return confirm('Are you sure to want to delete it?')"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                <a class="dropdown-item" href="{{route('employee.cv',$lists->id)}}">
+                                    <i class="fa fa-info-circle m-r-5"></i> Info
+                                </a>
+
                             </div>
                         </div>
                         <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile.html">{{ $lists->name }}</a></h4>
@@ -105,7 +109,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="col-form-label">Email <span class="text-danger">*</span></label>
@@ -129,7 +133,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">  
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="employee_id" name="employee_id" placeholder="Auto id employee" readonly>
@@ -208,7 +212,7 @@
             </div>
         </div>
         <!-- /Add Employee Modal -->
-        
+
     </div>
     <!-- /Page Wrapper -->
     @section('script')
@@ -269,7 +273,7 @@
             var statuss = (_this.find(".statuss").text());
             var _option = '<option selected value="' +statuss+ '">' + _this.find('.statuss').text() + '</option>'
             $( _option).appendTo("#e_status");
-            
+
         });
     </script>
     @endsection

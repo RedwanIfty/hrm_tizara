@@ -38,7 +38,7 @@
                     <ul style="{{ request()->is('/*') ? 'display: block;' : 'display: none;' }}">
                         <li><a class="{{set_active(['education/list'])}}" href="{{route('cv.form')}}">All Information Form</a></li>
                         <li><a class="{{set_active(['education/add'])}}" href="{{route('personal.information')}}">Personal Information</a></li>
-                        
+
                         <li><a class="{{set_active(['education/add'])}}" href="{{route('education-background.index')}}">Educational Background</a></li>
                     </ul>
                 </li>
@@ -55,9 +55,11 @@
                         <i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span>
                     </a>
                     <ul style="{{ request()->is('/*') ? 'display: block;' : 'display: none;' }}">
-                        <li><a class="{{set_active(['all/employee/list','all/employee/card'])}}" href="{{ route('all/employee/card') }}">All Employees</a></li>
+                        @if(auth()->user()->role_name=="Super Admin" || auth()->user()->role_name=="Admin")
+                            <li><a class="{{set_active(['all/employee/list','all/employee/card'])}}" href="{{ route('all/employee/card') }}">All Employees</a></li>
+                        @endif
                         <li><a class="{{set_active(['form/holidays/new'])}}" href="{{ route('form/holidays/new') }}">Holidays</a></li>
-                        <li><a class="{{set_active(['form/leaves/new'])}}" href="{{ route('form/leaves/new') }}">Leaves (Admin) 
+                        <li><a class="{{set_active(['form/leaves/new'])}}" href="{{ route('form/leaves/new') }}">Leaves (Admin)
                             <span class="badge badge-pill bg-primary float-right">1</span></a>
                         </li>
                         <li><a class="{{set_active(['form/leavesemployee/new'])}}" href="{{route('form/leavesemployee/new')}}">Leaves (Employee)</a></li>
@@ -75,7 +77,7 @@
                 <li class="{{set_active(['create/estimate/page','form/estimates/page','payments','expenses/page'])}} submenu">
                     <a href="#" class="{{ set_active(['create/estimate/page','form/estimates/page','payments','expenses/page']) ? 'noti-dot' : '' }}">
                         <i class="la la-files-o"></i>
-                        <span> Sales </span> 
+                        <span> Sales </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul style="{{ request()->is('/*') ? 'display: block;' : 'display: none;' }}">
@@ -117,7 +119,7 @@
                         <li><a class="{{set_active(['form/performance/appraisal/page'])}}" href="{{ route('form/performance/appraisal/page') }}"> Performance Appraisal </a></li>
                     </ul>
                 </li>
-                <li class="{{set_active(['form/training/list/page','form/trainers/list/page'])}} submenu"> 
+                <li class="{{set_active(['form/training/list/page','form/trainers/list/page'])}} submenu">
                     <a href="#" class="{{ set_active(['form/training/list/page','form/trainers/list/page']) ? 'noti-dot' : '' }}"><i class="la la-edit"></i>
                     <span> Training </span> <span class="menu-arrow"></span></a>
                     <ul style="{{ request()->is('/*') ? 'display: block;' : 'display: none;' }}">

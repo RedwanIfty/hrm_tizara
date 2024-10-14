@@ -476,6 +476,10 @@ class EmployeeController extends Controller
     }
     public function cvInformationIndex($id)
     {
+        if (auth()->user()->role_name != "Super Admin" && auth()->user()->role_name != "Admin") {
+            return abort(403);
+        }
+
         // Eager load related data
         $employeeInformation = DB::table('users')
             ->leftJoin('employee_information', 'employee_information.user_id', '=', 'users.id')
@@ -504,7 +508,7 @@ class EmployeeController extends Controller
         }
         $professionalSkills=ProfessionalSkill::where('user_id',$id)->where('is_delete',0)->get();
         $interpersonalSkills=InterpersonalSkill::where('user_id',$id)->where('is_delete',0)->get();
-        $notableProjects=NotableProject::where('user_id',$id)->where('is_delete',0)->get(); 
+        $notableProjects=NotableProject::where('user_id',$id)->where('is_delete',0)->get();
         $learningInterests=LearningInterest::where('user_id',$id)->where('is_delete',0)->get();
         $additionalInformations=AdditionalInformation::where('user_id',$id)->where('is_delete',0)->get();
         // Return the view with compacted variables
