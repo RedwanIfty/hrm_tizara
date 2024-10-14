@@ -501,6 +501,11 @@ class EmployeeController extends Controller
 
         // Fetch other related data in a single query
         $otherQualifications = OtherQualification::where('user_id', $id)->where('is_delete',0)->get();
+        foreach ($otherQualifications as $qualification) {
+            if (!empty($qualification->passing_year)) {
+                $qualification->passing_year = Carbon::parse($qualification->passing_year)->format('jS F Y');
+            }
+        }
         $workResposibility = WorkResponsibility::where('user_id', $id)->where('is_delete',0)->first();
         $jobExperiences = JobExperience::where('user_id', $id)->where('is_delete',0)->get();
         foreach($jobExperiences as $jobExperience){
@@ -525,6 +530,8 @@ class EmployeeController extends Controller
             'additionalInformations'
         ));
     }
-
+    public function dummyData(){
+        return view('dummy-data');
+    }
 
 }

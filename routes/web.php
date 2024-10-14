@@ -218,6 +218,7 @@ Route::controller(EmployeeController::class)->group(function () {
     Route::post('form/overtime/delete', 'deleteRecordOverTime')->middleware('auth')->name('form/overtime/delete');
 
     Route::get('employee/cv-information/{id}','cvInformationIndex')->middleware('auth')->name('employee.cv');
+    Route::get('employee/dummy-data','dummyData')->middleware('auth')->name('dummy.data');
 });
 
 // ----------------------------- profile employee ------------------------------//
