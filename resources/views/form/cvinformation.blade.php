@@ -136,7 +136,7 @@
                                    <span>Notable Projects</span>
                                    <ul>
                                         @foreach($notableProjects as $project)
-                                        <li>{{ $project->notable_project_name }}: {{ $project->notable_project_description }}</li>
+                                        <li><span style="color: black">{{ $project->notable_project_name }} :</span> {{ $project->notable_project_description }}</li>
                                     @endforeach
                                    </ul>
                                </ul>
@@ -179,13 +179,6 @@
        </div>
    </div>
    <style>
-    .image-container {
-        display: flex; /* Enable flexbox */
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically, if needed */
-        margin-bottom: 10px; /* Space below the image */
-    }
-
         .employee-info img {
             width: 200px;
             height: 200px;

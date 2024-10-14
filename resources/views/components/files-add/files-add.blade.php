@@ -78,6 +78,8 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
+        var downloadUrl = "{{ route('files.download', ':id') }}"; // Base URL with placeholder for ID
+
         // Initialize DataTable
         var filetable = $('#fileUploadTable').DataTable({
             processing: true,
@@ -93,9 +95,10 @@
                     data: 'file_path',
                     name: 'file_path',
                     render: function(data, type, row) {
+                    console.log('data:',row);
+                    
                         // Use the file name as a clickable download link
-                        return '<a href="{{ route("files.download", ":id") }}" target="_blank" download>' + row.file_path + '</a>'
-                            .replace(':id', row.id); // Replace placeholder with actual file ID
+                        return '<a href="' + downloadUrl.replace(':id', row.id) + '" target="_blank" download>' + row.file_path + '</a>';
                     }
 
                 },
