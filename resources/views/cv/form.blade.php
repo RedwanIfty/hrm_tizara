@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('css')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.0/ckeditor.js"
-            integrity="sha512-tjxUra6WjSA8H5+nC7G61SVqEXj1e958LdR4N8BGZeRx9tObm/YhsrUzY6tH4EuHQyZqOyu317pgV7f8YPFoAQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.0/ckeditor.js" integrity="sha512-tjxUra6WjSA8H5+nC7G61SVqEXj1e958LdR4N8BGZeRx9tObm/YhsrUzY6tH4EuHQyZqOyu317pgV7f8YPFoAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @endsection
 @section('content')
@@ -826,34 +825,12 @@
     </script>
     <script>
         $(document).ready(function () {
-            var JobExperienceTable = $('#jobExperienceTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{ route("job-experience.index") }}',
-                pageLength: 5,
-                columns: [
-                    {data: 'name', name: 'name'},
-                    {data: 'company_name', name: 'company_name'},
-                    {data: 'designation', name: 'designation'},
-                    {data: 'date', name: 'date'},
-                    {
-                        data: 'key_responsibilities',
-                        name: 'key_responsibilities',
-                        render: function (data, type, row) {
-                            // Render the data as raw HTML (do not escape)
-                            return data;
-                        }
-                    },
-                    {data: 'actions', name: 'actions', orderable: false, searchable: false}
-                ]
-            });
-
             // Initialize CKEditor for existing textareas
             $('textarea.ckeditor').each(function () {
-                CKEDITOR.replace(this);
+                CKEDITOR.replace(this); // Replace textarea with CKEditor
             });
 
-            // Add Job Experience
+            // Add Job Experience dynamically
             $('#addJobExperience').on('click', function () {
                 const jobExperienceEntry = `
             <div class="job-experience-entry row mb-3">
@@ -874,7 +851,6 @@
                     <textarea class="form-control ckeditor" name="key_responsibilities[]" placeholder="Key Responsibilities" required></textarea>
                 </div>
                 <div class="col-md-2 mt-4">
-                    <label>&nbsp;</label>
                     <button type="button" class="btn btn-danger removeJobExperience">Remove</button>
                 </div>
             </div>`;
@@ -888,22 +864,128 @@
             $(document).on('click', '.removeJobExperience', function () {
                 const textareaName = $(this).closest('.job-experience-entry').find('textarea[name="key_responsibilities[]"]').attr('name');
                 if (CKEDITOR.instances[textareaName]) {
-                    CKEDITOR.instances[textareaName].destroy(); // Destroy the CKEditor instance before removing the element
+                    CKEDITOR.instances[textareaName].destroy(); // Destroy CKEditor instance
                 }
                 $(this).closest('.job-experience-entry').remove();
             });
 
             // Submit the form
             $('#jobExperienceForm').on('submit', function (event) {
-                event.preventDefault(); // Prevent the default form submission
+                event.preventDefault(); // Prevent default form submission
+
+                // Update all CKEditor textarea content to ensure the data is passed
+                for (let instance in CKEDITOR.instances) {
+                    if (CKEDITOR.instances.hasOwnProperty(instance)) {
+                        CKEDITOR.instances[instance].updateElement(); // Ensure CKEditor content is synced with textarea
+                    }
+                }
 
                 // Gather form data
-                var formData = $(this).serializeArray(); // Use serializeArray for better handling of array inputs
+                var formData = $(this).serializeArray();
 
                 // Validate all key_responsibilities fields
                 let allValid = true;
                 $('textarea[name^="key_responsibilities"]').each(function () {
-                    if (!CKEDITOR.instances[$(this).attr('name')].getData().trim()) {
+                    if (!$(this).val().trim()) {
+                        allValid = false;
+                        $(this).addClass('is-invalid'); // Add invalid class for visual feedback
+                    } else {
+                        $(this).removeClass('is-invalid'); // Remove invalid class if filled
+                    }
+                });
+
+                // if (!allValid) {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Validation Error',
+                //         text: 'Please fill all Key Responsibilities fields.',
+                //         confirmButtonText: 'Okay'
+                //     });
+                //     return; // Stop form submission if validation fails
+                // }
+
+                // AJAX form submission
+                $.ajax({
+                    url: '{{ route("job-experience.store") }}', // Controller route
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: response.message,
+                            confirmButtonText: 'Okay'
+                        });
+                        // window.location.reload(); // Reload page to show new data
+                        $('#jobExperienceForm')[0].reset(); // Reset form
+                    },
+                    error: function (xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        var errorMessage = '<ul>';
+                        $.each(errors, function (key, value) {
+                            errorMessage += '<li>' + value[0] + '</li>';
+                        });
+                        errorMessage += '</ul>';
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: errorMessage, // Display error messages
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var JobExperienceTable = $('#jobExperienceTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route("job-experience.index") }}',
+                pageLength: 5,
+                columns: [
+                    {data: 'name', name: 'name'},
+                    {data: 'company_name', name: 'company_name'},
+                    {data: 'designation', name: 'designation'},
+                    {data: 'date', name: 'date'},
+                    {
+                        data: 'key_responsibilities',
+                        name: 'key_responsibilities',
+                        render: function (data, type, row) {
+                            return data; // Render raw HTML (unescaped)
+                        }
+                    },
+                    {data: 'actions', name: 'actions', orderable: false, searchable: false}
+                ]
+            });
+
+
+            // Submit the form
+            $('#jobExperienceForm').on('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Manually update the textarea content from CKEditor to form fields
+                $('textarea.ckeditor').each(function () {
+                    var editorId = $(this).attr('id');
+                    if (CKEDITOR.instances[editorId]) {
+                        $(this).val(CKEDITOR.instances[editorId].getData()); // Update the textarea with CKEditor data
+                    }
+                });
+
+                // Gather form data
+                var formData = $(this).serializeArray();
+                console.log(formData);
+                // Validate all key_responsibilities fields
+                let allValid = true;
+                $('textarea[name^="key_responsibilities"]').each(function () {
+                    if (!$(this).val().trim()) {
                         allValid = false;
                         $(this).addClass('is-invalid'); // Add invalid class for visual feedback
                     } else {
@@ -912,87 +994,64 @@
                 });
 
                 if (!allValid) {
-                    // Optionally show an alert or error message indicating required fields
                     Swal.fire({
                         icon: 'error',
                         title: 'Validation Error',
                         text: 'Please fill all Key Responsibilities fields.',
                         confirmButtonText: 'Okay'
                     });
-                    return; // Prevent form submission if validation fails
+                    return; // Stop form submission if validation fails
                 }
 
-                // Collect data from CKEditor instances
-                formData = formData.map(function (field) {
-                    if (field.name.startsWith('key_responsibilities')) {
-                        field.value = CKEDITOR.instances[field.name].getData();
-                    }
-                    return field;
-                });
-
+                // AJAX form submission
                 $.ajax({
-                    url: '{{ route("job-experience.store") }}', // Your route to the controller method
+                    url: '{{ route("job-experience.store") }}', // Controller route
                     type: 'POST',
                     data: formData,
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Set the CSRF token
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                     },
                     success: function (response) {
-                        console.log(response);
-                        // Use SweetAlert for success message
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',
                             text: response.message,
-                            confirmButtonText: 'Okay',
+                            confirmButtonText: 'Okay'
                         });
-                        window.location.reload(); // Reload the page to show new data
-                        $('#jobExperienceForm')[0].reset(); // Reset the form
+                        window.location.reload(); // Reload page to show new data
+                        $('#jobExperienceForm')[0].reset(); // Reset form
                     },
                     error: function (xhr) {
                         var errors = xhr.responseJSON.errors;
                         var errorMessage = '<ul>';
                         $.each(errors, function (key, value) {
-                            errorMessage += '<li>' + value[0] + '</li>'; // Display the first error message for each field
+                            errorMessage += '<li>' + value[0] + '</li>';
                         });
                         errorMessage += '</ul>';
 
-                        // Use SweetAlert for error message
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            html: errorMessage, // Use HTML to display the error messages
+                            html: errorMessage, // Display error messages
                             confirmButtonText: 'Okay'
                         });
                     }
                 });
             });
+
+            // Edit Job Experience (Modal)
             $('#jobExperienceTable').on('click', '.job_experiences-edit', function () {
                 var id = $(this).data('id');
-                alert(id);
                 $.ajax({
                     url: '{{ route("job-experience.edit", ":id") }}'.replace(':id', id),
                     type: 'GET',
                     success: function (data) {
-                        console.log(data);
-                        // Populate the form fields with the fetched data
                         $('#edit_experience_id').val(data.id);
                         $('#edit_user_id').val(data.user_id);
-                        $('#edit_user_id option').each(function () {
-                            if ($(this).val() == data.user_id) {
-                                $(this).prop('selected', true);
-                            } else {
-                                $(this).prop('selected', false);
-                            }
-                        });
                         $('#edit_company_name').val(data.company_name);
                         $('#edit_designation').val(data.designation);
                         $('#edit_date').val(data.date);
-                        $('#edit_key_responsibilities').val(data.key_responsibilities);
-                        // editorInstance.setData(data.key_responsibilities); // Set CKEditor data
-
-                        // console.log(temp);
-                        // Show the modal
+                        CKEDITOR.instances['edit_key_responsibilities'].setData(data.key_responsibilities); // Set CKEditor data
                         $('#editJobExperienceModal').modal('show');
                     },
                     error: function (err) {
@@ -1004,17 +1063,18 @@
                     }
                 });
             });
+
+            // Save Job Experience Changes
             $('#saveJobExperienceChanges').on('click', function () {
-                // Get form data
                 var formData = $('#editJobExperienceForm').serialize();
                 var experienceId = $('#edit_experience_id').val(); // Get experience ID
-                console.log(formData)
+
                 $.ajax({
-                    url: '{{ route("job-experience.update", ":id") }}'.replace(':id', experienceId), // Replace :id with actual experience ID
+                    url: '{{ route("job-experience.update", ":id") }}'.replace(':id', experienceId), // Controller route
                     type: 'PUT',
                     data: formData,
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Set the CSRF token
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (response) {
                         Swal.fire({
@@ -1023,17 +1083,15 @@
                             text: response.message,
                             timer: 2000
                         });
-                        // Optionally reload the job experience table or refresh the page
-                        JobExperienceTable.ajax.reload(); // Adjust according to your table instance
-                        $('#editJobExperienceModal').modal('hide'); // Hide modal
+                        JobExperienceTable.ajax.reload();
+                        $('#editJobExperienceModal').modal('hide');
                     },
                     error: function (xhr) {
-                        // Handle error response
                         var errors = xhr.responseJSON.errors;
                         var errorMsg = '';
                         if (errors) {
                             $.each(errors, function (key, value) {
-                                errorMsg += value[0] + '\n'; // Concatenate error messages
+                                errorMsg += value[0] + '\n';
                             });
                         }
                         Swal.fire({
@@ -1044,6 +1102,8 @@
                     }
                 });
             });
+
+            // Delete Job Experience
             $('#jobExperienceTable').on('click', '.job_experiences-delete', function () {
                 var id = $(this).data('id');
                 Swal.fire({
@@ -1059,7 +1119,7 @@
                             url: '{{ route("job-experience.delete", ":id") }}'.replace(':id', id),
                             type: 'DELETE',
                             headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Set the CSRF token
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function (response) {
                                 Swal.fire({
@@ -1070,20 +1130,20 @@
                                 });
                                 JobExperienceTable.ajax.reload();
                             },
-                            error: function (err) {
+                            error: function (xhr) {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error',
-                                    text: 'Unable to delete employee information!'
+                                    text: 'Failed to delete job experience!'
                                 });
                             }
                         });
                     }
                 });
             });
-
         });
     </script>
+
     <script>
         $(document).ready(function () {
             // Add skill fields dynamically

@@ -35,13 +35,17 @@ class JobExperienceController extends Controller
         return view('cv.form');
     }
     public function store(Request $request){
+//        return $request->all();  // Check if key_responsibilities is part of the submitted data
+
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id', // Ensure user exists
             'company_name.*' => 'required|string|max:255',
             'designation.*' => 'required|string|max:255',
             'date.*' => 'required|date',
-            'key_responsibilities.*' => 'required|string',
+            'key_responsibilities.*' => 'required|string',//"key_responsibilities[]"
+//            'key_responsibilities.*' => 'required|string',
         ]);
+
 
         // Loop through the validated data and create job experience records
         foreach ($validatedData['company_name'] as $index => $companyName) {
