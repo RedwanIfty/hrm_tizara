@@ -14,7 +14,7 @@
                     @else
                         <img src="{{ asset('/assets/images/default.png') }}" alt="Default Image"/>
                     @endisset
-                    
+
                     </div>
                    <div class="row">
                        <!-- Personal Information -->
@@ -30,7 +30,7 @@
                                     <span>Email : </span>
                                     <a href="mailto:{{ $employeeInformation->email }}">{{ $employeeInformation->email }}</a>
                                 </li>
-                                
+
                                    <li><span>Nationality : </span>{{ $employeeInformation->nationality }}</li>
                                    <li><span>Marital Status : </span>{{ $employeeInformation->marital_status }}</li>
                                </ul>
@@ -47,7 +47,7 @@
                                    <li><span>Graduation Year : </span>{{ $educationalBackground->graduation_year }}</li>
                                    <li><span>Major : </span>{{ $educationalBackground->major }}</li>
                                    @if($otherQualifications && $otherQualifications->count() > 0)
-                                   <li><span>Other Qualifications</span></li>      
+                                   <li><span>Other Qualifications</span></li>
                                    <ul>
                                         @foreach($otherQualifications as $qualification)
                                             <li><span>{{ $qualification->qualification_name }} : </span>{{ $qualification->passing_year }}</li>
@@ -55,7 +55,7 @@
                                     </ul>
                                     @endif
                                </ul>
-                              
+
                            </div>
                        @endisset
 
@@ -86,12 +86,12 @@
                                             <li><span>Start Date : </span>{{ $experience->date }}</li>
                                             <li>
                                                 <span>
-                                                    Key Responsibility : 
+                                                    Key Responsibility :
                                                 </span>
                                                 {!! $experience->key_responsibilities !!}
                                             </li>
-                                           
-                                        </ul>   
+
+                                        </ul>
                                     </ul>
                                @endforeach
                            </div>
@@ -132,7 +132,7 @@
                                         {{ $employeeInformation->website_link }}
                                     </a>
                                 </li>
-                                
+
                                    <span>Notable Projects</span>
                                    <ul>
                                         @foreach($notableProjects as $project)
@@ -173,6 +173,20 @@
                         </ul>
                     </div>
                     @endif
+                       @if($attachFiles && $attachFiles->count() > 0)
+                           <div class="col-lg-4">
+                               <h4>
+                                   Attached Files
+                               </h4>
+                               <ul>
+                                   @foreach($attachFiles as $attachFile)
+                                       <li>
+                                           <span>{{$attachFile->file_type}} </span>:<a href="{{route('files.download',$attachFile->id)}}">{{$attachFile->file_path}}</a>
+                                       </li>
+                                   @endforeach
+                               </ul>
+                           </div>
+                       @endif
                    </div>
                </div>
            </div>

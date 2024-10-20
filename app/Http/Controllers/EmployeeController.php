@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdditionalInformation;
+use App\Models\File;
 use Illuminate\Http\Request;
 use DB;
 use Brian2694\Toastr\Facades\Toastr;
@@ -56,7 +57,8 @@ class EmployeeController extends Controller
 //        return $users;
         $userList = DB::table('users')->get();
         $permission_lists = DB::table('permission_lists')->get();
-        return view('form.employeelist',compact('users','userList','permission_lists'));
+        $attachedFiles=File::where('is_deleted',0)->get();
+        return view('form.employeelist',compact('users','userList','permission_lists','attachedFiles'));
     }
 
     // save data employee
@@ -357,7 +359,9 @@ class EmployeeController extends Controller
                         ->where('users.position','LIKE','%'.$request->position.'%')
                         ->get();
         }
-        return view('form.employeelist',compact('users','userList','permission_lists'));
+        $attachedFiles=File::where('is_deleted',0)->get();
+
+        return view('form.employeelist',compact('users','userList','permission_lists','attachedFiles'));
     }
 
     // employee profile with all controller user
@@ -516,6 +520,8 @@ class EmployeeController extends Controller
         $notableProjects=NotableProject::where('user_id',$id)->where('is_delete',0)->get();
         $learningInterests=LearningInterest::where('user_id',$id)->where('is_delete',0)->get();
         $additionalInformations=AdditionalInformation::where('user_id',$id)->where('is_delete',0)->get();
+        $attachFiles=File::where('user_id',$id)->where('is_deleted',0)->get();
+//        return $attachFiles;
         // Return the view with compacted variables
         return view('form.cvinformation', compact(
             'employeeInformation',
@@ -527,7 +533,8 @@ class EmployeeController extends Controller
             'interpersonalSkills',
             'notableProjects',
             'learningInterests',
-            'additionalInformations'
+            'additionalInformations',
+            'attachFiles'
         ));
     }
     public function dummyData(){

@@ -193,6 +193,7 @@ class UserManagementController extends Controller
     // save profile information
     public function profileInformation(Request $request)
     {
+//        return $request->all();
         try {
             if(!empty($request->images))
             {
@@ -209,8 +210,12 @@ class UserManagementController extends Controller
                     if($image != '')
                     {
                         $image_name = rand() . '.' . $image->getClientOriginalExtension();
-                        $image->move(public_path('/assets/images/'), $image_name);
-                        unlink('assets/images/'.Auth::user()->avatar);
+                        $oldImage = public_path('/assets/images/' . Auth::user()->avatar);
+
+                        if (file_exists($oldImage) && Auth::user()->avatar != 'photo_defaults.jpg') {
+                            // Delete the old image if it exists and it's not the default image
+                            unlink($oldImage);
+                        }
                     }
                 }
                 $update = [

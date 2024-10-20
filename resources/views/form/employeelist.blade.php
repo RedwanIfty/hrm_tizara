@@ -69,6 +69,7 @@
                                     <th>Mobile</th>
                                     <th class="text-nowrap">Join Date</th>
                                     <th>Role</th>
+                                    <th>Attach files</th>
                                     <th class="text-right no-sort">Action</th>
                                 </tr>
                             </thead>
@@ -86,6 +87,22 @@
                                     <td>{{ $items->phone_number }}</td>
                                     <td>{{ $items->join_date }}</td>
                                     <td>{{ $items->role_name }}</td>
+                                    @php
+                                        $attachFiles = $attachedFiles->where('user_id', $items->id);
+                                    @endphp
+
+                                    @if ($attachFiles->isNotEmpty())
+                                        <td>
+                                            @foreach ($attachFiles as $file)
+                                                <strong>{{ $file->file_type }}</strong>: <a href="{{route('files.download',$file->id)}}">{{ $file->file_path }}</a><br>
+
+                                            @endforeach
+
+                                        </td>
+                                    @else
+                                        <td>No File Attached</td>
+                                    @endif
+
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>

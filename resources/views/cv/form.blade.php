@@ -145,7 +145,6 @@
             // Delete Employee Information with SweetAlert confirmation
             $('#employeeTable').on('click', '.delete', function () {
                 var employeeId = $(this).data('id');
-                alert('{{ route("employee_information.delete", ":id") }}'.replace(':id', employeeId));
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "This action cannot be undone!",
@@ -235,7 +234,6 @@
             $('#educationBackgroundForm').on('submit', function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
-                alert('fdsaf');
                 var formData = $(this).serialize();
                 console.log(formData);
                 $.ajax({
@@ -784,7 +782,7 @@
             });
             // workresponsibilities-delete
             $('#responsibilitiesTable').on('click', '.workresponsibilities-delete', function () {
-                alert('working delete');
+                // alert('working delete');
                 var id = $(this).data('id');
                 Swal.fire({
                     title: 'Are you sure?',
@@ -829,6 +827,7 @@
             $('textarea.ckeditor').each(function () {
                 CKEDITOR.replace(this); // Replace textarea with CKEditor
             });
+
 
             // Add Job Experience dynamically
             $('#addJobExperience').on('click', function () {
@@ -1047,11 +1046,19 @@
                     type: 'GET',
                     success: function (data) {
                         $('#edit_experience_id').val(data.id);
-                        $('#edit_user_id').val(data.user_id);
+                        // $('#edit_user_id').val(data.user_id);
+                        $('#edit_user_id option').each(function () {
+                            if ($(this).val() == data.user_id) {
+                                $(this).prop('selected', true);
+                            } else {
+                                $(this).prop('selected', false);
+                            }
+                        });
                         $('#edit_company_name').val(data.company_name);
                         $('#edit_designation').val(data.designation);
                         $('#edit_date').val(data.date);
-                        CKEDITOR.instances['edit_key_responsibilities'].setData(data.key_responsibilities); // Set CKEditor data
+                        // CKEDITOR.instances['edit_key_responsibilities'].setData(data.key_responsibilities); // Set CKEditor data
+                        $('#edit_key_responsibilities').val(data.key_responsibilities);
                         $('#editJobExperienceModal').modal('show');
                     },
                     error: function (err) {
