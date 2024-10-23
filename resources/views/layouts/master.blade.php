@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<!-- Other Meta Tags -->
-	<title>Dashboard - HRMS</title>
+    <!-- Other Meta Tags -->
+    <title>Dashboard - HRMS</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<!-- Load CSS Files -->
-	<link rel="stylesheet" href="{{ URL::to('assets/css/bootstrap.min.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('assets/css/font-awesome.min.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('assets/css/line-awesome.min.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('assets/css/dataTables.bootstrap4.min.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('assets/css/select2.min.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('assets/css/bootstrap-datetimepicker.min.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('ssets/plugins/morris/morris.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
-	<link rel="stylesheet" href="{{ URL::to('assets/css/toastr.min.css') }}">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-	<!-- Summernote CSS -->
+    <!-- Load CSS Files -->
+    <link rel="stylesheet" href="{{ URL::to('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/css/line-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/plugins/morris/morris.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Load JavaScript Files -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-	<!-- Toastr -->
-	<script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
-	<script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
-
-	<!-- SweetAlert -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-	<!-- Summernote JS -->
-	@yield('css')
-
+    <!-- Summernote JS -->
+    @yield('css')
 </head>
+
 
 <body>
 	<style>
@@ -337,31 +332,42 @@
 	</div>
 	<!-- /Main Wrapper -->
 
-	<!-- jQuery -->
-	<script src="{{ URL::to('assets/js/jquery-3.5.1.min.js') }}"></script>
-	<!-- Bootstrap Core JS -->
-	<script src="{{ URL::to('assets/js/popper.min.js') }}"></script>
-	<script src="{{ URL::to('assets/js/bootstrap.min.js') }}"></script>
-	<!-- Chart JS -->
-	<script src="{{ URL::to('assets/plugins/morris/morris.min.js') }}"></script>
-	<script src="{{ URL::to('assets/plugins/raphael/raphael.min.js') }}"></script>
-	<script src="{{ URL::to('assets/js/chart.js') }}"></script>
-	<script src="{{ URL::to('assets/js/Chart.min.js') }}"></script>
-	<script src="{{ URL::to('assets/js/line-chart.js') }}"></script>
-	<!-- Slimscroll JS -->
-	<script src="{{ URL::to('assets/js/jquery.slimscroll.min.js') }}"></script>
-	<!-- Select2 JS -->
-	<script src="{{ URL::to('assets/js/select2.min.js') }}"></script>
-	<!-- Datetimepicker JS -->
-	<script src="{{ URL::to('assets/js/moment.min.js') }}"></script>
-	<script src="{{ URL::to('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-	<!-- Datatable JS -->
-	<script src="{{ URL::to('assets/js/jquery.dataTables.min.js') }}"></script>
-	<script src="{{ URL::to('assets/js/dataTables.bootstrap4.min.js') }}"></script>
-	<!-- Multiselect JS -->
-	<script src="{{ URL::to('assets/js/multiselect.min.js') }}"></script>
-	<!-- Custom JS -->
-	<script src="{{ URL::to('assets/js/app.js') }}"></script>
-	@yield('script')
+    <!-- jQuery -->
+    <script src="{{ URL::to('assets/js/jquery-3.5.1.min.js') }}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{{ URL::to('assets/js/popper.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/bootstrap.min.js') }}"></script>
+
+    <!-- Chart JS -->
+    <script src="{{ URL::to('assets/plugins/raphael/raphael.min.js') }}"></script>
+    <script src="{{ URL::to('assets/plugins/morris/morris.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/chart.js') }}"></script>
+    <script src="{{ URL::to('assets/js/Chart.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/line-chart.js') }}"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="{{ URL::to('assets/js/jquery.slimscroll.min.js') }}"></script>
+
+    <!-- Select2 JS -->
+    <script src="{{ URL::to('assets/js/select2.min.js') }}"></script>
+
+    <!-- Datetimepicker JS -->
+    <script src="{{ URL::to('assets/js/moment.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+    <!-- Datatable JS -->
+    <script src="{{ URL::to('assets/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Multiselect JS -->
+    <script src="{{ URL::to('assets/js/multiselect.min.js') }}"></script>
+
+    <!-- Custom JS -->
+    <script src="{{ URL::to('assets/js/app.js') }}"></script>
+
+    <!-- Additional Scripts -->
+    @yield('script')
+
 </body>
 </html>

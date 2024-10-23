@@ -21,7 +21,15 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="page-title">CV Create</h3>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                <h3 class="page-title text-left">CV Create</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="{{ route('view-cv.pdf', ['id' => auth()->user()->id]) }}" target="_blank" class="btn btn-primary text-right">View CV</a>
+                            </div>
+
+                        </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">CV</li>

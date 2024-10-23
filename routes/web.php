@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SettingController;
@@ -428,4 +429,7 @@ Route::controller(FileController::class)->group(function () {
     Route::delete('/file/{id}', 'destroy')->middleware('auth')->name('files.delete'); // Delete additional information
     Route::get('/files/download/{id}', 'download')->middleware('auth')->name('files.download');
 
+});
+Route::controller(PdfController::class)->group(function () {
+    Route::get('/download/cv-pdf/{id}', 'downloadPDF')->middleware('auth')->name('view-cv.pdf');
 });
