@@ -290,43 +290,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 d-flex">
-                            <div class="card profile-box flex-fill">
-                                <div class="card-body">
-                                    <h3 class="card-title">Family Informations <a href="#" class="edit-icon" data-toggle="modal" data-target="#family_info_modal"><i class="fa fa-pencil"></i></a></h3>
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Relationship</th>
-                                                    <th>Date of Birth</th>
-                                                    <th>Phone</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Leo</td>
-                                                    <td>Brother</td>
-                                                    <td>Feb 16th, 2019</td>
-                                                    <td>9876543210</td>
-                                                    <td class="text-right">
-                                                        <div class="dropdown dropdown-action">
-                                                            <a aria-expanded="false" data-toggle="dropdown" class="action-icon dropdown-toggle" href="#"><i class="material-icons">more_vert</i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a href="#" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                                <a href="#" class="dropdown-item"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-user-profile.family-information :familyInformations="$familyInformations"/>
                     </div>
                     <div class="row">
                         <div class="col-md-6 d-flex">
@@ -1307,97 +1271,6 @@
         </div>
         <!-- /Personal Info Modal -->
         @endif
-        
-        <!-- Family Info Modal -->
-        <div id="family_info_modal" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"> Family Informations</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-scroll">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Family Member <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Name <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Relationship <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Date of birth <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Education Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Name <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Relationship <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Date of birth <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone <span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="add-more">
-                                            <a href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-section">
-                                <button class="btn btn-primary submit-btn">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /Family Info Modal -->
-        
         <!-- Emergency Contact Modal -->
         <div id="emergency_contact_modal" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

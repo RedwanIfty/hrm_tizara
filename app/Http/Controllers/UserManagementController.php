@@ -7,6 +7,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use DB;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\FamilyInformation;
 use App\Models\Form;
 use App\Models\ProfileInformation;
 use App\Models\PersonalInformation;
@@ -168,29 +169,32 @@ class UserManagementController extends Controller
     public function profile()
     {
         $profile = Session::get('user_id'); // get user_id session
-        $userInformation = PersonalInformation::where('user_id',$profile)->first(); // user information
+        $userInformation = PersonalInformation::where('user_id', $profile)->first(); // user information
         $user = DB::table('users')->get();
-        $employees = DB::table('profile_information')->where('user_id',$profile)->first();
-
-        if(empty($employees))
-        {
-            $information = DB::table('profile_information')->where('user_id',$profile)->first();
-            return view('usermanagement.profile_user',compact('information','user','userInformation'));
+        $employees = DB::table('profile_information')->where('user_id', $profile)->first();
+        $familyInformations = FamilyInformation::where('user_id', $profile)->get(); // Fixed the typo
+        // return $familyInformations;
+        if (empty($employees)) {
+            $information = DB::table('profile_information')->where('user_id', $profile)->first();
+            $familyInformations = FamilyInformation::where('user_id', $profile)->get(); // Fixed the typo
+            // return $familyInformations;
+            return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations')); // Fixed the typo
 
         } else {
             $user_id = $employees->user_id;
-            if($user_id == $profile)
-            {
-                $information = DB::table('profile_information')->where('user_id',$profile)->first();
-                return view('usermanagement.profile_user',compact('information','user','userInformation'));
+            if ($user_id == $profile) {
+                $information = DB::table('profile_information')->where('user_id', $profile)->first();
+                $familyInformations = FamilyInformation::where('user_id', $profile)->get(); // Fixed the typo
+                // return $familyInformations;
+                return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations')); // Fixed the typo
             } else {
                 $information = ProfileInformation::all();
-                return view('usermanagement.profile_user',compact('information','user','userInformation'));
+                $familyInformations = FamilyInformation::all(); // Fixed the typo
+                return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations')); // Fixed the typo
             }
         }
     }
-
-    // save profile information
+// save profile information
     public function profileInformation(Request $request)
     {
 //        return $request->all();

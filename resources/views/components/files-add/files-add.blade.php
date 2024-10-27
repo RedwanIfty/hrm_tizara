@@ -130,7 +130,7 @@
                         confirmButtonText: 'OK'
                     }).then(() => {
                         $('#websiteLinkForm')[0].reset(); // Reset the form
-                        // $('#usersTable').DataTable().ajax.reload(); // Reload the DataTable
+                        window.location.reload();
                     });
                 },
                 error: function (response) {

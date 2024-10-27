@@ -35,7 +35,10 @@ use App\Http\Controllers\InterpersonalSkillController;
 use App\Http\Controllers\NotableProjectController;
 use App\Http\Controllers\LearningInterestController;
 use App\Http\Controllers\AdditionalInformationController;
+use App\Http\Controllers\FamilyInforamationController;
 use App\Http\Controllers\FileController;
+use App\Models\FamilyInformation;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -432,4 +435,7 @@ Route::controller(FileController::class)->group(function () {
 });
 Route::controller(PdfController::class)->group(function () {
     Route::get('/download/cv-pdf/{id}', 'downloadPDF')->middleware('auth')->name('view-cv.pdf');
+});
+Route::controller(FamilyInforamationController::class)->group(function(){
+    Route::post('family-inforamation/store','store')->middleware('auth')->name('store.family.info');
 });

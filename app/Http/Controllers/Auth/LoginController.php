@@ -10,8 +10,9 @@ use Auth;
 use DB;
 use App\Models\User;
 use Carbon\Carbon;
-use Session;
+// use Session;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -72,7 +73,7 @@ class LoginController extends Controller
             $user = Auth::User();
             Session::put('name', $user->name);
             Session::put('email', $user->email);
-            Session::put('user_id', $user->user_id);
+            Session::put('user_id', $user->id);
             Session::put('join_date', $user->join_date);
             Session::put('phone_number', $user->phone_number);
             Session::put('status', $user->status);
