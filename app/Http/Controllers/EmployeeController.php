@@ -10,6 +10,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Employee;
 use App\Models\department;
 use App\Models\EducationBackground;
+use App\Models\FamilyInformation;
 use App\Models\InterpersonalSkill;
 use App\Models\JobExperience;
 use App\Models\LearningInterest;
@@ -371,6 +372,7 @@ class EmployeeController extends Controller
                 ->leftJoin('personal_information','personal_information.user_id','users.user_id')
                 ->leftJoin('profile_information','profile_information.user_id','users.user_id')
                 ->leftJoin('employee_information','employee_information.user_id','users.id')
+            
                 ->where('users.user_id',$user_id)
                 ->first();
 //        return $users;
@@ -380,7 +382,9 @@ class EmployeeController extends Controller
                 ->leftJoin('employee_information','employee_information.user_id','users.id')
                 ->where('users.user_id',$user_id)
                 ->get();
-        return view('form.employeeprofile',compact('user','users'));
+        $familyInformations = FamilyInformation::where('user_id', $users->id)->get(); // Fixed the typo
+       
+        return view('form.employeeprofile',compact('user','users','familyInformations'));
     }
 
     /** page departments */
