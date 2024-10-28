@@ -372,19 +372,22 @@ class EmployeeController extends Controller
                 ->leftJoin('personal_information','personal_information.user_id','users.user_id')
                 ->leftJoin('profile_information','profile_information.user_id','users.user_id')
                 ->leftJoin('employee_information','employee_information.user_id','users.id')
-            
                 ->where('users.user_id',$user_id)
                 ->first();
-//        return $users;
+
+    //    return $user_id;
         $user = DB::table('users')
                 ->leftJoin('personal_information','personal_information.user_id','users.user_id')
                 ->leftJoin('profile_information','profile_information.user_id','users.user_id')
                 ->leftJoin('employee_information','employee_information.user_id','users.id')
                 ->where('users.user_id',$user_id)
                 ->get();
-        $familyInformations = FamilyInformation::where('user_id', $users->id)->get(); // Fixed the typo
-       
-        return view('form.employeeprofile',compact('user','users','familyInformations'));
+        $userId=User::where('user_id',$user_id)->first('id');
+        // return $userId;
+        $familyInformations = FamilyInformation::where('user_id', $userId->id)->get(); // Fixed the typo
+        // return $familyInformations;
+        $employee=User::where('user_id',$user_id)->first();
+        return view('form.employeeprofile',compact('user','users','familyInformations','employee'));
     }
 
     /** page departments */

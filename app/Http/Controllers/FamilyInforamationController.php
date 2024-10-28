@@ -13,6 +13,7 @@ class FamilyInforamationController extends Controller
     {
         // Validate request
         $request->validate([
+            'user_id'=>'required',
             'name.*' => 'required|string|max:255',
             'relationship.*' => 'required|string|max:255',
             'dob.*' => 'required|date',
@@ -27,7 +28,7 @@ class FamilyInforamationController extends Controller
             // Loop through each family member entry
             foreach ($request->name as $index => $name) {
                 $familyMembers[] = FamilyInformation::create([
-                    'user_id' => auth()->id(),
+                    'user_id' => $request->user_id,
                     'name' => $name,
                     'relationship' => $request->relationship[$index],
                     'dob' => $request->dob[$index],
@@ -57,5 +58,48 @@ class FamilyInforamationController extends Controller
         }
     }
     
-
+    public function edit($id)
+    {
+        $familyMember = FamilyInformation::find($id);
+        return response()->json($familyMember);
+    }
+    
+    public function update(Request $request)
+    {
+        // Start the transaction
+        DB::beginTransaction();
+    
+        try {
+            // Validate request
+            $request->validate([
+                'member_id' => 'required|exists:family_members,id',
+                'name' => 'required|string|max:255',
+                'relationship' => 'required|string|max:255',
+                'dob' => 'required|date',
+                'phone' => 'required|string|max:15',
+            ]);
+    
+            // Find the family member
+            $familyMember = FamilyInformation::findOrFail($request->member_id);
+    
+            // Update family member details
+            $familyMember->name = $request->name;
+            $familyMember->relationship = $request->relationship;
+            $familyMember->dob = $request->dob;
+            $familyMember->phone = $request->phone;
+            $familyMember->save();
+    
+            // Commit the transaction
+            DB::commit();
+            Toastr::success('Family members updated successfully!', 'Success');
+    
+            return response()->json(['success' => 'Family member updated successfully']);
+            
+        } catch (\Exception $e) {
+            // Rollback the transaction if there's an error
+            DB::rollback();
+    
+            return response()->json(['error' => 'An error occurred while updating the family member.'], 500);
+        }
+    }
 }

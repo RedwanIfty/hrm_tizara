@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                         </div>
-                        <x-user-profile.family-information :familyInformations="$familyInformations"/>
+                        <x-user-profile.family-information :familyInformations="$familyInformations" :user="$employee->id" />
                        
                     </div>
                     <div class="row">

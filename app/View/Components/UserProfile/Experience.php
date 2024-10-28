@@ -4,19 +4,17 @@ namespace App\View\Components\UserProfile;
 
 use Illuminate\View\Component;
 
-class FamilyInformation extends Component
+class Experience extends Component
 {
-    public $familyInformations;
-    public $user;
+    public $experience;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($familyInformations,$user)
+    public function __construct($experience)
     {
-        $this->familyInformations=$familyInformations;
-        $this->user=$user;
+        $this->experience=$experience;
     }
 
     /**
@@ -26,6 +24,6 @@ class FamilyInformation extends Component
      */
     public function render()
     {
-        return view('components.user-profile.family-information');
+        return view('components.user-profile.experience');
     }
 }

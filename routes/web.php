@@ -438,4 +438,7 @@ Route::controller(PdfController::class)->group(function () {
 });
 Route::controller(FamilyInforamationController::class)->group(function(){
     Route::post('family-inforamation/store','store')->middleware('auth')->name('store.family.info');
+    Route::get('/family-member/{id}/edit','edit')->middleware('auth')->name('family-member.edit');
+    Route::post('/family-info/update','update')->middleware('auth')->name('family.info.update');
+
 });
