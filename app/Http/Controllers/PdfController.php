@@ -24,7 +24,7 @@ class PdfController extends Controller
         $authUser = auth()->user();
 
         // Check if the user is authorized to view the CV
-        if ($authUser->id !== $id && !($authUser->role_name=="Admin")) {
+        if ($authUser->id != $id && !($authUser->role_name=="Admin")) {
             // If not the user or not an admin, abort with a 403 error
             abort(403, 'Unauthorized access to this CV.');
         }

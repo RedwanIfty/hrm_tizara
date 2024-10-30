@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="row">
-                            <div class="col-6 text-left">
+                            <div class="col-6 text-lef
                                 <h3 class="page-title text-left">CV Create</h3>
                             </div>
                             <div class="col-6 text-right">
