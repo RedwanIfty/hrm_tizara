@@ -13,14 +13,14 @@ class PersonalInformationController extends Controller
     public function saveRecord(Request $request)
     {
         $request->validate([
-            'passport_no'          => 'required|string|max:255',
-            'passport_expiry_date' => 'required|string|max:255',
+            'passport_no'          => 'string|max:255',
+            // 'passport_expiry_date' => 'string|max:255',
             'tel'                  => 'required|string|max:255',
             'nationality'          => 'required|string|max:255',
             'religion'             => 'required|string|max:255',
             'marital_status'       => 'required|string|max:255',
-            'employment_of_spouse' => 'required|string|max:255',
-            'children'             => 'required|string|max:255',
+            // 'employment_of_spouse' => 'required|string|max:255',
+            // 'children'             => 'required|string|max:255',
         ]);
 
         DB::beginTransaction();

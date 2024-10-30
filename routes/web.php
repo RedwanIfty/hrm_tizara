@@ -35,6 +35,7 @@ use App\Http\Controllers\InterpersonalSkillController;
 use App\Http\Controllers\NotableProjectController;
 use App\Http\Controllers\LearningInterestController;
 use App\Http\Controllers\AdditionalInformationController;
+use App\Http\Controllers\BankInformationController;
 use App\Http\Controllers\FamilyInforamationController;
 use App\Http\Controllers\FileController;
 use App\Models\FamilyInformation;
@@ -441,4 +442,8 @@ Route::controller(FamilyInforamationController::class)->group(function(){
     Route::get('/family-member/{id}/edit','edit')->middleware('auth')->name('family-member.edit');
     Route::post('/family-info/update','update')->middleware('auth')->name('family.info.update');
 
+});
+Route::controller(BankInformationController::class)->group(function(){
+    Route::post('/bank-info/save', 'save')->name('bank-info.save');
+    Route::delete('/bank-info/delete/{id}', 'delete')->name('bank-info.delete');
 });

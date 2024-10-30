@@ -265,64 +265,65 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 d-flex">
-                            <div class="card profile-box flex-fill">
-                                <div class="card-body">
-                                    <h3 class="card-title">Bank information</h3>
-                                    <ul class="personal-info">
-                                        <li>
-                                            <div class="title">Bank name</div>
-                                            <div class="text">ICICI Bank</div>
-                                        </li>
-                                        <li>
-                                            <div class="title">Bank account No.</div>
-                                            <div class="text">159843014641</div>
-                                        </li>
-                                        <li>
-                                            <div class="title">IFSC Code</div>
-                                            <div class="text">ICI24504</div>
-                                        </li>
-                                        <li>
-                                            <div class="title">PAN No</div>
-                                            <div class="text">TC000Y56</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        {{-- bankinfo here --}}
+                        <x-user-profile.bank-info/>
                         <x-user-profile.family-information :familyInformations="$familyInformations" :user="$profile"/>
                     </div>
                     <div class="row">
                         <div class="col-md-6 d-flex">
                             <div class="card profile-box flex-fill">
                                 <div class="card-body">
-                                    <h3 class="card-title">Education Informations <a href="#" class="edit-icon" data-toggle="modal" data-target="#education_info"><i class="fa fa-pencil"></i></a></h3>
+                                    <h3 class="card-title">Education Informations
+                                        
+                                        {{-- <a href="#" class="edit-icon" data-toggle="modal" data-target="#education_info"><i class="fa fa-pencil"></i></a> --}}
+                                    </h3>
                                     <div class="experience-box">
                                         <ul class="experience-list">
+                                            @isset($educationData)
                                             <li>
                                                 <div class="experience-user">
                                                     <div class="before-circle"></div>
                                                 </div>
                                                 <div class="experience-content">
                                                     <div class="timeline-content">
-                                                        <a href="#/" class="name">International College of Arts and Science (UG)</a>
-                                                        <div>Bsc Computer Science</div>
-                                                        <span class="time">2000 - 2003</span>
+                                                        <a href="#/" class="name">{{$educationData['education']['university']}}</a>
+                                                        <div>{{$educationData['education']['degree']}} ({{$educationData['education']['major']}})</div>
+                                                        <span class="time">
+                                                            {{ \Carbon\Carbon::parse($educationData['education']['graduation_year'] . '-01-01')->format('Y') }}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </li>
+                                            @forelse($educationData['other_qualifications'] as $oQ)
                                             <li>
                                                 <div class="experience-user">
                                                     <div class="before-circle"></div>
                                                 </div>
                                                 <div class="experience-content">
                                                     <div class="timeline-content">
-                                                        <a href="#/" class="name">International College of Arts and Science (PG)</a>
-                                                        <div>Msc Computer Science</div>
-                                                        <span class="time">2000 - 2003</span>
+                                                        <div>{{$oQ['qualification_name']}}</div>
+                                                        <span class="time">
+                                                            {{ \Carbon\Carbon::parse($oQ['passing_year']. '-01-01')->format('Y') }}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </li>
+                                            @empty
+                                            <li>
+                                                <div class="experience-user">
+                                                    <div class="before-circle"></div>
+                                                </div>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <div>N/A</div>
+                                                        <span class="time">
+                                                            N/A
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            @endforelse
+                                            @endisset
                                         </ul>
                                     </div>
                                 </div>

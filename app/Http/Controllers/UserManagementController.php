@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EducationBackground;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use DB;
@@ -10,6 +11,7 @@ use App\Models\Employee;
 use App\Models\FamilyInformation;
 use App\Models\Form;
 use App\Models\JobExperience;
+use App\Models\OtherQualification;
 use App\Models\ProfileInformation;
 use App\Models\PersonalInformation;
 use App\Rules\MatchOldPassword;
@@ -175,12 +177,19 @@ class UserManagementController extends Controller
         $employees = DB::table('profile_information')->where('user_id', $profile)->first();
         $familyInformations = FamilyInformation::where('user_id', $profile)->get(); // Fixed the typo
         $experience=JobExperience::where('user_id',$profile)->get();
+        $education=EducationBackground::where('user_id',$profile)->where('is_delete',0)->first();
+        $otherQualifications=OtherQualification::where('user_id',$profile)->where('is_delete',0)->get();
+        $educationData = [
+            'education' => $education,
+            'other_qualifications' => $otherQualifications
+        ];
+        // return $education;
         // return $familyInformations;
         if (empty($employees)) {
             $information = DB::table('profile_information')->where('user_id', $profile)->first();
             $familyInformations = FamilyInformation::where('user_id', $profile)->get(); // Fixed the typo
             // return $familyInformations;
-            return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations','profile','experience')); // Fixed the typo
+            return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations','profile','experience','educationData')); // Fixed the typo
 
         } else {
             $user_id = $employees->user_id;
@@ -188,11 +197,11 @@ class UserManagementController extends Controller
                 $information = DB::table('profile_information')->where('user_id', $profile)->first();
                 $familyInformations = FamilyInformation::where('user_id', $profile)->get(); // Fixed the typo
                 // return $familyInformations;
-                return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations','profile','experience')); // Fixed the typo
+                return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations','profile','experience','educationData')); // Fixed the typo
             } else {
                 $information = ProfileInformation::all();
                 $familyInformations = FamilyInformation::all(); // Fixed the typo
-                return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations','profile','experience')); // Fixed the typo
+                return view('usermanagement.profile_user', compact('information', 'user', 'userInformation', 'familyInformations','profile','experience','educationData')); // Fixed the typo
             }
         }
     }
