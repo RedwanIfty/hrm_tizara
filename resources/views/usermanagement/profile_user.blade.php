@@ -119,7 +119,7 @@
                                                             </a>
                                                         </div>
                                                     </li>
-                                                @endif    
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-					
+
             <div class="card tab-box">
                 <div class="row user-tabs">
                     <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="tab-content">
                 <!-- Profile Info Tab -->
                 <div id="emp_profile" class="pro-overview tab-pane fade show active">
@@ -155,35 +155,35 @@
                                         <ul class="personal-info">
                                             <li>
                                                 <div class="title">Passport No.</div>
-                                                <div class="text">{{ $userInformation->passport_no }}</div>
+                                                <div class="text">{{ $userInformation->passport_no ?? "N/A"}}</div>
                                             </li>
                                             <li>
                                                 <div class="title">Passport Exp Date.</div>
-                                                <div class="text">{{ $userInformation->passport_expiry_date }}</div>
+                                                <div class="text">{{ $userInformation->passport_expiry_date ?? "N/A"}}</div>
                                             </li>
                                             <li>
                                                 <div class="title">Tel</div>
-                                                <div class="text"><a href="">{{ $userInformation->tel }}</a></div>
+                                                <div class="text"><a href="">{{ $userInformation->tel ?? "N/A" }}</a></div>
                                             </li>
                                             <li>
                                                 <div class="title">Nationality</div>
-                                                <div class="text">{{ $userInformation->nationality }}</div>
+                                                <div class="text">{{ $userInformation->nationality ??"N/A" }}</div>
                                             </li>
                                             <li>
                                                 <div class="title">Religion</div>
-                                                <div class="text">{{ $userInformation->religion }}</div>
+                                                <div class="text">{{ $userInformation->religion ??"N/A"}}</div>
                                             </li>
                                             <li>
                                                 <div class="title">Marital status</div>
-                                                <div class="text">{{ $userInformation->marital_status }}</div>
+                                                <div class="text">{{ $userInformation->marital_status ??"N/A"}}</div>
                                             </li>
                                             <li>
                                                 <div class="title">Employment of spouse</div>
-                                                <div class="text">{{ $userInformation->employment_of_spouse }}</div>
+                                                <div class="text">{{ $userInformation->employment_of_spouse ??"N/A"}}</div>
                                             </li>
                                             <li>
                                                 <div class="title">No. of children</div>
-                                                <div class="text">{{ $userInformation->children }}</div>
+                                                <div class="text">{{ $userInformation->children ??"N/A"}}</div>
                                             </li>
                                         </ul>
                                     @else
@@ -274,7 +274,7 @@
                             <div class="card profile-box flex-fill">
                                 <div class="card-body">
                                     <h3 class="card-title">Education Informations
-                                        
+
                                         {{-- <a href="#" class="edit-icon" data-toggle="modal" data-target="#education_info"><i class="fa fa-pencil"></i></a> --}}
                                     </h3>
                                     <div class="experience-box">
@@ -333,7 +333,7 @@
                     </div>
                 </div>
                 <!-- /Profile Info Tab -->
-                    
+
                 <!-- Projects Tab -->
                 <div class="tab-pane fade" id="emp_projects">
                     <div class="row">
@@ -399,7 +399,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
@@ -462,7 +462,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
@@ -525,7 +525,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
@@ -591,7 +591,7 @@
                     </div>
                 </div>
                 <!-- /Projects Tab -->
-                
+
                 <!-- Bank Statutory Tab -->
                 <div class="tab-pane fade" id="bank_statutory">
                     <div class="card">
@@ -732,7 +732,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <hr>
                                 <h3 class="card-title"> ESI Information</h3>
                                 <div class="row">
@@ -794,7 +794,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn" type="submit">Save</button>
                                 </div>
@@ -1033,7 +1033,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Designation <span class="text-danger">*</span></label>
-                                        
+
                                         <select class="select" id="" name="designation">
                                             <option selected disabled>Select Designation</option>
                                             <option value="Web Designer">Web Designer</option>
@@ -1064,7 +1064,7 @@
         </div>
         <!-- /Profile Modal -->
         @endif
-    
+
         @if (!empty($userInformation))
         <!-- Personal Info Modal -->
         <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
@@ -1272,7 +1272,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">Primary Contact</h3>
@@ -1313,7 +1313,7 @@
             </div>
         </div>
         <!-- /Emergency Contact Modal -->
-        
+
         <!-- Education Modal -->
         <div id="education_info" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1374,7 +1374,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Education Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
@@ -1435,7 +1435,7 @@
             </div>
         </div>
         <!-- /Education Modal -->
-        
+
         <!-- Experience Modal -->
         <div id="experience_info" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1490,7 +1490,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Experience Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>

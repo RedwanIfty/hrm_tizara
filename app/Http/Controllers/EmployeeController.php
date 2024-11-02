@@ -27,13 +27,17 @@ class EmployeeController extends Controller
     // all employee card view
     public function cardAllEmployee(Request $request)
     {
+        $employees = Employee::pluck('user_id')->toArray();
+//        return $employees;
         $users = DB::table('users')
                     ->join('employees', 'users.user_id', '=', 'employees.employee_id')
                     ->select('users.*', 'employees.birth_date', 'employees.gender', 'employees.company')
+//                    ->whereNotIn('users.id',$employees)
                     ->get();
-        $userList = DB::table('users')->get();
+        $userList = DB::table('users')->whereNotIn('id',$employees)->get();
+        $companyList  = DB::table('companies')->get();
         $permission_lists = DB::table('permission_lists')->get();
-        return view('form.allemployeecard',compact('users','userList','permission_lists'));
+        return view('form.allemployeecard',compact('users','userList','permission_lists','companyList'));
     }
     // all employee list
     public function listAllEmployee()
@@ -65,6 +69,8 @@ class EmployeeController extends Controller
     // save data employee
     public function saveRecord(Request $request)
     {
+//        $user=User::where('email',$request->email)->first();
+//        return $user;
 //        return $request->all();
         $request->validate([
             'name'        => 'required|string|max:255',
@@ -78,6 +84,8 @@ class EmployeeController extends Controller
         try{
 
             $employees = Employee::where('email', '=',$request->email)->first();
+            $user=User::where('email',$request->email)->first();
+//            return $user;
             if ($employees === null)
             {
 
@@ -88,6 +96,7 @@ class EmployeeController extends Controller
                 $employee->gender       = $request->gender;
                 $employee->employee_id  = $request->employee_id;
                 $employee->company      = $request->company;
+                $employee->user_id      = $user->id;
                 $employee->save();
 
                 for($i=0;$i<count($request->id_count);$i++)
@@ -129,11 +138,13 @@ class EmployeeController extends Controller
             ->where('employees.employee_id','=',$employee_id)
             ->get();
         $employees = DB::table('employees')->where('employee_id',$employee_id)->get();
-        return view('form.edit.editemployee',compact('employees','permission'));
+        $companyList = DB::table('companies')->get();
+        return view('form.edit.editemployee',compact('employees','permission','companyList'));
     }
     // update record employee
     public function updateRecord( Request $request)
     {
+//        return $request->all();
         DB::beginTransaction();
         try{
             // update table Employee
@@ -148,7 +159,7 @@ class EmployeeController extends Controller
             ];
             // update table user
             $updateUser = [
-                'id'=>$request->id,
+                'user_id'=>$request->employee_id,
                 'name'=>$request->name,
                 'email'=>$request->email,
             ];
@@ -170,7 +181,7 @@ class EmployeeController extends Controller
                 module_permission::where('id',$request->id_permission[$i])->update($UpdateModule_permissions);
             }
 
-            User::where('id',$request->id)->update($updateUser);
+            User::where('user_id',$request->employee_id)->update($updateUser);
             Employee::where('id',$request->id)->update($updateEmployee);
 
             DB::commit();
@@ -210,6 +221,7 @@ class EmployeeController extends Controller
                     ->get();
         $permission_lists = DB::table('permission_lists')->get();
         $userList = DB::table('users')->get();
+        $companyList   = DB::table('companies')->get();
 
         // search by id
         if($request->employee_id)
@@ -280,7 +292,7 @@ class EmployeeController extends Controller
                          ->where('users.position','LIKE','%'.$request->position.'%')
                          ->get();
          }
-        return view('form.allemployeecard',compact('users','userList','permission_lists'));
+        return view('form.allemployeecard',compact('users','userList','permission_lists','companyList'));
     }
     public function employeeListSearch(Request $request)
     {

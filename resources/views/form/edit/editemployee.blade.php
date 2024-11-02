@@ -30,6 +30,7 @@
                             <form action="{{ route('all/employee/update') }}" method="POST">
                                 @csrf
                                 <input type="hidden" class="form-control" id="id" name="id" value="{{ $employees[0]->id }}">
+
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-2">Full Name</label>
                                     <div class="col-md-10">
@@ -67,9 +68,18 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-2">Company</label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="company" name="company" value="{{ $employees[0]->company }}">
+                                        <select id="company" name="company" class="form-control selectpicker" data-live-search="true">
+                                            <option value="">-- Select Company --</option>
+                                            @foreach ($companyList as $company)
+                                                <option value="{{ $company->company_name }}"
+                                                        @if($company->company_name == $employees[0]->company) selected @endif>
+                                                    {{ $company->company_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-2">Employee Permission</label>
@@ -141,7 +151,7 @@
             </div>
         </div>
         <!-- /Page Content -->
-        
+
     </div>
     <!-- /Page Wrapper -->
     @section('script')

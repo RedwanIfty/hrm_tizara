@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -441,9 +442,15 @@ Route::controller(FamilyInforamationController::class)->group(function(){
     Route::post('family-inforamation/store','store')->middleware('auth')->name('store.family.info');
     Route::get('/family-member/{id}/edit','edit')->middleware('auth')->name('family-member.edit');
     Route::post('/family-info/update','update')->middleware('auth')->name('family.info.update');
+    Route::delete('/family-info/{id}','destroy')->middleware('auth')->name('family-info.destroy');
+
 
 });
 Route::controller(BankInformationController::class)->group(function(){
     Route::post('/bank-info/save', 'save')->name('bank-info.save');
     Route::delete('/bank-info/delete/{id}', 'delete')->name('bank-info.delete');
+});
+Route::controller(ApplicationController::class)->group(function(){
+    Route::get('form/application', 'leaves')->middleware('auth')->name('application.form');
+
 });

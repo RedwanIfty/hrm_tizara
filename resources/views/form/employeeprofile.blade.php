@@ -89,7 +89,7 @@
                                                             {{ $user[0]->name }}
                                                         </a>
                                                     </div>
-                                                </li> 
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-					
+
             <div class="card tab-box">
                 <div class="row user-tabs">
                     <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="tab-content">
                 <!-- Profile Info Tab -->
                 <div id="emp_profile" class="pro-overview tab-pane fade show active">
@@ -224,7 +224,7 @@
                             </div>
                         </div>
                         <x-user-profile.family-information :familyInformations="$familyInformations" :user="$employee->id" />
-                       
+
                     </div>
                     <div class="row">
                         <div class="col-md-6 d-flex">
@@ -309,7 +309,7 @@
                     </div>
                 </div>
                 <!-- /Profile Info Tab -->
-                
+
                 <!-- Projects Tab -->
                 <div class="tab-pane fade" id="emp_projects">
                     <div class="row">
@@ -375,7 +375,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
@@ -438,7 +438,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
@@ -501,7 +501,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
@@ -567,7 +567,7 @@
                     </div>
                 </div>
                 <!-- /Projects Tab -->
-                
+
                 <!-- Bank Statutory Tab -->
                 <div class="tab-pane fade" id="bank_statutory">
                     <div class="card">
@@ -708,7 +708,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <hr>
                                 <h3 class="card-title"> ESI Information</h3>
                                 <div class="row">
@@ -770,7 +770,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn" type="submit">Save</button>
                                 </div>
@@ -813,7 +813,7 @@
                                             <div class="form-group">
                                                 <label>Full Name</label>
                                                 <input type="text" class="form-control" id="name" name="name" value="{{ $user[0]->name }}">
-                                                <input type="text" class="form-control" id="user_id" name="user_id" value="{{ $user[0]->user_id }}">
+                                                <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ $user[0]->user_id }}">
                                                 <input type="hidden" class="form-control" id="email" name="email" value="{{ $user[0]->email }}">
                                             </div>
                                         </div>
@@ -960,7 +960,7 @@
             </div>
         </div>
         <!-- /Profile Modal -->
-    
+
         <!-- Personal Info Modal -->
         <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1042,7 +1042,7 @@
             </div>
         </div>
         <!-- /Personal Info Modal -->
-        
+
         <!-- Family Info Modal -->
         <div id="family_info_modal" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1087,7 +1087,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Education Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
@@ -1132,7 +1132,7 @@
             </div>
         </div>
         <!-- /Family Info Modal -->
-        
+
         <!-- Emergency Contact Modal -->
         <div id="emergency_contact_modal" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1176,7 +1176,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">Primary Contact</h3>
@@ -1217,7 +1217,7 @@
             </div>
         </div>
         <!-- /Emergency Contact Modal -->
-        
+
         <!-- Education Modal -->
         <div id="education_info" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1278,7 +1278,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Education Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
@@ -1339,7 +1339,7 @@
             </div>
         </div>
         <!-- /Education Modal -->
-        
+
         <!-- Experience Modal -->
         <div id="experience_info" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1394,7 +1394,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Experience Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
