@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class LeaveType extends Model
 {
     use HasFactory;
+    protected $table = 'leave_type';
 }

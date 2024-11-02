@@ -73,6 +73,24 @@
                         <li><a class="{{set_active(['form/overtime/page'])}}" href="{{ route('form/overtime/page') }}">Overtime</a></li>
                     </ul>
                 </li>
+                <li class="menu-title"> <span>Application</span> </li>
+                <li class="{{ set_active(['application/list', 'application/add', 'application/view']) }} submenu">
+                    <a href="#" class="{{ set_active(['application/list', 'application/add', 'application/view']) ? 'noti-dot' : '' }}">
+                        <i class="la la-folder-open"></i>
+                        <span>Applications</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul style="{{ request()->is(['application/list', 'application/add', 'application/view']) ? 'display: block;' : 'display: none;' }}">
+                        <li>
+                            <a class="{{ set_active(['application/list']) }}" href="#">Application List</a>
+                        </li>
+                        <li>
+                            <a class="{{ set_active(['application/add']) }}" href="{{ route('application.add') }}">Add Application</a>
+                        </li>
+
+                    </ul>
+                </li>
+
                 <li class="menu-title"> <span>HR</span> </li>
                 <li class="{{set_active(['create/estimate/page','form/estimates/page','payments','expenses/page'])}} submenu">
                     <a href="#" class="{{ set_active(['create/estimate/page','form/estimates/page','payments','expenses/page']) ? 'noti-dot' : '' }}">

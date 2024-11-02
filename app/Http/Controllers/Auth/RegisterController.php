@@ -32,8 +32,10 @@ class RegisterController extends Controller
         $dt       = Carbon::now();
         $todayDate = $dt->toDayDateTimeString();
 //        return $request->all();
+        $role=DB::table('role_type_users')->where('role_type',$request->role_name)->first();
         $user=User::create([
             'name'      => $request->name,
+            'role_id'   => $role->id,
             'avatar'    => $request->image,
             'email'     => $request->email,
             'join_date' => $todayDate,

@@ -451,6 +451,6 @@ Route::controller(BankInformationController::class)->group(function(){
     Route::delete('/bank-info/delete/{id}', 'delete')->name('bank-info.delete');
 });
 Route::controller(ApplicationController::class)->group(function(){
-    Route::get('form/application', 'leaves')->middleware('auth')->name('application.form');
+    Route::get('employee/application-form', 'applicationForm')->middleware('auth')->name('application.add');
 
 });
